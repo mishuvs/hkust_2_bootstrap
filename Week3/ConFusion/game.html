@@ -1,0 +1,67 @@
+
+<html>
+<head>
+	<title>Guess The Number game!</title>
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body ng-app="app">
+<div class="container" ng-controller="GuessTheNumberController">
+    <div class="row jumbotron">
+        <h3 class="col-xs-12 col-sm-10">Guessing Game by <i>VAIBHAV SHRIVASTAVA</i></h3>
+        <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSTO8JpkeDBnI95FeCYehTXLbSxByp7Ng8LkZuep0SJTxuOLzc0PMs2Iw" class="col-xs-12 col-sm-2">
+    </div>
+	<p class="well lead">I am guessing a number between 1 and 100. Which number am I thinking of?</p>
+    <div class="row">
+        <div class="col-sm-6">
+            <label>Your Guess: </label><input type="number" ng-model="guess"/>
+        </div>
+        <div class="col-sm-6">
+            <p class="text-info">No of guesses : <span class="label">{{noOfTries}}</span></p>
+        </div>
+    </div>
+	<button ng-click="check()" class="btn btn-primary btn-sm">Verify</button>	
+	<button ng-click="startGame()" class="btn btn-warning btn-sm">Restart</button>
+    <p id="main">
+        <p ng-show="yes==1" class="alert alert-danger">You have already tried this one! :(</p>
+		<p ng-show="deviation<0 && guess<(original*2)" class="alert alert-danger">Your number is large.</p>
+        <p ng-show="deviation<0 && guess>(original*2)" class="alert alert-danger">Your number is <strong>too</strong> large.</p>
+		<p ng-show="deviation>0 && guess>(original/2)" class="alert alert-info">Your number is small.</p>
+		<p ng-show="deviation>0 && guess<(original/2)" class="alert alert-info">Your number is <strong>too</strong> small.</p>
+        <p ng-show="noOfTries>5 && deviation==0" class="alert alert-success">
+            <strong>You won!</strong>
+            Next time, try harder!</p>
+        <p ng-show="noOfTries<5 && deviation==0" class="alert alert-success"><strong>You won!</strong>
+            You are a champ ;)</p>
+    
+    </p>
+</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.js"></script>
+	<script type="text/javascript">
+		angular.module('app',[])
+		.controller('GuessTheNumberController', GuessTheNumberController);
+		function GuessTheNumberController($scope) {
+			$scope.check = function () {
+                if(($scope.entered.indexOf($scope.guess)) != -1) {
+                    $scope.yes=1;
+                    return;
+                }
+                else $scope.yes=0;
+				$scope.deviation = $scope.original - $scope.guess;
+				$scope.noOfTries = $scope.noOfTries + 1;
+                $scope.entered.push($scope.guess);
+			}
+			$scope.startGame=function() {
+                $scope.entered=[0];
+				$scope.noOfTries = 0;
+				$scope.original = Math.floor((Math.random() * 100) + 1);
+				$scope.guess = null;
+				$scope.deviation = null;
+			}
+            $scope.answer = function() {
+                $scope.answer = original;
+            }
+			$scope.startGame();
+		}
+	</script>
+</body>
+</html>

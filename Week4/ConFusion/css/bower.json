@@ -1,0 +1,27 @@
+{
+  "name": "conFusion",
+  "description": "Website for an awesome restaurant and my assignment for course 2 week 4",
+  "main": "index.html",
+  "keywords": [
+    "conFusion",
+    "Fusion",
+    "assignment4"
+  ],
+  "authors": [
+    "Vaibhav Shrivastava"
+  ],
+  "license": "MIT",
+  "homepage": "index.html",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "font-awesome": "Font-Awesome#^4.6.3"
+  }
+}
